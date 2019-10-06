@@ -11,15 +11,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import py.edu.upa.test.business.CategoriaBC;
-import py.edu.upa.test.entity.Categoria;
-import py.edu.upa.test.entity.Producto;
+import py.edu.upa.test.business.ProveedorBC;
+import py.edu.upa.test.entity.Proveedor;
 
-@Path("categorias")
-public class CategoriaService {
+@Path("proveedores")
+public class ProveedorService {
 
 	@Inject
-	private CategoriaBC bc;
+	private ProveedorBC bc;
 
 //	http://localhost:8080/ws/rest/categoria/
 	@GET
@@ -35,7 +34,7 @@ public class CategoriaService {
 		}
 	}
 	
-//	http://localhost:8080/ws/rest/categoria/1
+//	http://localhost:8080/ws/rest/proveedor/1
     @GET
     @Path("/{id: \\d+}")
     @Produces({"application/json"})
@@ -49,14 +48,14 @@ public class CategoriaService {
 					.build();
 		}
     }
-
+	
 	@POST
     @Consumes({"application/json"})
     @Produces({"application/json"})
-	public Response add(Categoria c) {
+	public Response add(Proveedor pro) {
 		try {
-			bc.insert(c);
-			return Response.ok().entity(c).build();
+			bc.insert(pro);
+			return Response.ok().entity(pro).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -64,14 +63,14 @@ public class CategoriaService {
 					.build();
 		}
 	}
-    
+	
     @PUT
     @Path("/{id: \\d+}")
     @Consumes({"application/json"})
     @Produces({"application/json"})
-    public Response update(@PathParam("id") Integer id, Categoria cat) {
+    public Response update(@PathParam("id") Integer id, Proveedor pro) {
     	try {
-    		bc.update(id,cat);
+    		bc.update(id,pro);
 			return Response.ok().entity("OK").build();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -26,6 +26,7 @@ public class CategoriaBC {
 	
 	public void insert(Categoria c){
 		dao.insert(c);
+
 	}
 	
 	public void update(Integer id, Categoria c){

@@ -36,7 +36,7 @@ public class CategoriaDAO {
 		Session session = (Session) entityManager.getDelegate();
 		Criteria criteria = session.createCriteria(Categoria.class);
 		
-		criteria.add(Restrictions.eq("id_estado", id));
+		criteria.add(Restrictions.eq("id_categoria", id));
 		
 		return (Categoria) criteria.uniqueResult();
 
@@ -55,7 +55,7 @@ public class CategoriaDAO {
 	
 	public void delete(Integer id){
 		Categoria c = findById(id);
-//		c.setDeleted(true);
+		c.setBorrado(true);
 		entityManager.merge(c);
 	}
 }

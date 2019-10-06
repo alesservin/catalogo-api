@@ -44,7 +44,7 @@ public class Producto {
 	private String imagen;
 	
 	private boolean borrado;
-	
+
 	public Integer getId() {
 		return id;
 	}
