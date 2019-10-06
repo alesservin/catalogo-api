@@ -9,18 +9,18 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import py.edu.upa.test.business.TypeBC;
-import py.edu.upa.test.entity.Type;
+import py.edu.upa.test.business.ProductoBC;
+import py.edu.upa.test.entity.Producto;
 
-@Path("types")
-public class TypeService {
+@Path("productos")
+public class ProductoService {
 
 	@Inject
-	private TypeBC bc;
+	private ProductoBC bc;
 
+//	http://localhost:8080/ws/rest/producto/
 	@GET
     @Produces("application/json")
 	public Response getAll() {
@@ -34,22 +34,7 @@ public class TypeService {
 		}
 	}
 	
-	@POST
-    @Consumes({"application/json"})
-    @Produces({"application/json"})
-	public Response add(Type t) {
-		try {
-			bc.insert(t);
-			return Response.ok().entity(t).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("ERROR_GENERICO")
-					.build();
-		}
-	}
-	
-//	http://localhost:8080/rest/taks/1
+//	http://localhost:8080/ws/rest/producto/1
     @GET
     @Path("/{id: \\d+}")
     @Produces({"application/json"})
@@ -64,47 +49,13 @@ public class TypeService {
 		}
     }
 	
-//  http://localhost:8080/rest/taks/1?filter=xx
-  @PUT
-  @Path("/{id: \\d+}")
-  @Consumes({"application/json"})
-  @Produces({"application/json"})
-  public Response update(@PathParam("id") Integer id, Type t) {
-  	try {
-  		bc.update(id,t);
-			return Response.ok().entity("OK").build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("ERROR_GENERICO")
-					.build();
-		}
-  }
-  
-  @DELETE
-  @Path("/{id: \\d+}")
-  @Produces({"application/json"})
-  public Response delete(@PathParam("id") Integer id) {
-  	try {
-  		bc.delete(id);
-			return Response.ok().entity("OK").build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("ERROR_GENERICO")
-					.build();
-		}
-  }
-  
-	//http://localhost:8080/rest/tasks/prueba?filter=xx
-	@GET
-	@Path("/pruebas")
-	@Produces({"application/json"})
-	public Response update(@QueryParam("filter") String filter) {
-		System.out.println("=================================");
-		System.out.println(filter);
+	@POST
+    @Consumes({"application/json"})
+    @Produces({"application/json"})
+	public Response add(Producto pro) {
 		try {
-			return Response.ok().entity(bc.getWithFilter(filter)).build();
+			bc.insert(pro);
+			return Response.ok().entity(pro).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -112,5 +63,36 @@ public class TypeService {
 					.build();
 		}
 	}
-  
+	
+    @PUT
+    @Path("/{id: \\d+}")
+    @Consumes({"application/json"})
+    @Produces({"application/json"})
+    public Response update(@PathParam("id") Integer id, Producto pro) {
+    	try {
+    		bc.update(id,pro);
+			return Response.ok().entity("OK").build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity("ERROR_GENERICO")
+					.build();
+		}
+    }
+	
+    @DELETE
+    @Path("/{id: \\d+}")
+    @Produces({"application/json"})
+    public Response delete(@PathParam("id") Integer id) {
+    	try {
+    		bc.delete(id);
+			return Response.ok().entity("OK").build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity("ERROR_GENERICO")
+					.build();
+		}
+    }
+       
 }
