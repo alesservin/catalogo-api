@@ -12,14 +12,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import py.edu.upa.test.business.TaskBC;
-import py.edu.upa.test.entity.Task;
+import py.edu.upa.test.business.CategoriaBC;
+import py.edu.upa.test.entity.Categoria;
 
-@Path("tasks")
-public class TaskService {
+@Path("categorias")
+public class CategoriaService {
 
 	@Inject
-	private TaskBC bc;
+	private CategoriaBC bc;
 
 	@GET
     @Produces("application/json")
@@ -33,23 +33,8 @@ public class TaskService {
 					.build();
 		}
 	}
-	
-	@POST
-    @Consumes({"application/json"})
-    @Produces({"application/json"})
-	public Response add(Task t) {
-		try {
-			bc.insert(t);
-			return Response.ok().entity(t).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("ERROR_GENERICO")
-					.build();
-		}
-	}
 
-//	http://localhost:8080/rest/taks/1
+//	http://localhost:8080/ws/rest/taks/1
     @GET
     @Path("/{id: \\d+}")
     @Produces({"application/json"})
@@ -64,14 +49,29 @@ public class TaskService {
 		}
     }
 
+	@POST
+    @Consumes({"application/json"})
+    @Produces({"application/json"})
+	public Response add(Categoria c) {
+		try {
+			bc.insert(c);
+			return Response.ok().entity(c).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity("ERROR_GENERICO")
+					.build();
+		}
+	}
+    
 //    http://localhost:8080/rest/taks/1?filter=xx
     @PUT
     @Path("/{id: \\d+}")
     @Consumes({"application/json"})
     @Produces({"application/json"})
-    public Response update(@PathParam("id") Integer id, Task t) {
+    public Response update(@PathParam("id") Integer id, Categoria c) {
     	try {
-    		bc.update(id,t);
+    		bc.update(id,c);
 			return Response.ok().entity("OK").build();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -96,23 +96,6 @@ public class TaskService {
 		}
     }
     
-//    http://localhost:8080/rest/tasks/prueba?filter=xx
-    @GET
-    @Path("/pruebas")
-    @Produces({"application/json"})
-    public Response update(@QueryParam("filter") String filter) {
-    	System.out.println("=================================");
-    	System.out.println(filter);
-    	try {
-			return Response.ok().entity(bc.getWithFilter(filter)).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity("ERROR_GENERICO")
-					.build();
-		}
-    }
-	
 	
 
 }
