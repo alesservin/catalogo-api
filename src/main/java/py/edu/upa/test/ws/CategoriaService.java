@@ -13,7 +13,6 @@ import javax.ws.rs.core.Response;
 
 import py.edu.upa.test.business.CategoriaBC;
 import py.edu.upa.test.entity.Categoria;
-import py.edu.upa.test.entity.Producto;
 
 @Path("categorias")
 public class CategoriaService {
