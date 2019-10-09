@@ -36,7 +36,7 @@ public class ProductoDAO {
 		Session session = (Session) entityManager.getDelegate();
 		Criteria criteria = session.createCriteria(Producto.class);
 		
-		criteria.add(Restrictions.eq("id_categoria", id));
+		criteria.add(Restrictions.eq("id", id));
 		
 		return (Producto) criteria.uniqueResult();
 
