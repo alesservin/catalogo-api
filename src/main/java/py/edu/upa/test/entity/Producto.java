@@ -101,12 +101,12 @@ public class Producto {
 		this.favorito = favorito;
 	}
 
-	public Timestamp getFechaCompra() {
-		return fechaCompra;
+	public Long getFechaCompra() {
+		return fechaCompra.getTime();
 	}
 
-	public void setFechaCompra(Timestamp fechaCompra) {
-		this.fechaCompra = fechaCompra;
+	public void setFechaCompra(Long fechaCompra) {
+		this.fechaCompra = new Timestamp(fechaCompra);
 	}
 
 	public String getImagen() {
